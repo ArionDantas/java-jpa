@@ -3,7 +3,9 @@ package controller;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
+import model.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,23 +22,23 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // acao = request.getParameter("acao");
-
-        // if (acao.equals("cadastrar")) {
-        //     abrir = "create_user.jsp";
-
-        // }
-        // RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
-        // visualizar.forward(request, response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        User user = new User();
         acao = request.getParameter("acao");
         if (acao.equals("cadastrar")) {
-            abrir = "create_user.jsp";
+
+            user.setAge(Integer.parseInt(request.getParameter("txtAge")));
+            Date d = new Date();
+            user.setCreateAt(d);
+            user.setName(request.getParameter("txtName"));
+            user.setSurname(request.getParameter("txtSurname"));
+
+            abrir = "index.jsp";
 
         }
         RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
